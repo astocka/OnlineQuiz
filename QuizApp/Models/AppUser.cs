@@ -15,5 +15,7 @@ namespace QuizApp.Models
         public AppUser()
         {
         }
+
+        public string Name { get; set; }
     }
 }

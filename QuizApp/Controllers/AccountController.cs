@@ -59,7 +59,7 @@ namespace QuizApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new AppUser(signUpViewModel.Login) { Email = signUpViewModel.Email, UserName = signUpViewModel.Name };
+                var user = new AppUser(signUpViewModel.Login) { Email = signUpViewModel.Email, Name = signUpViewModel.Name };
                 var result = await UserManager.CreateAsync(user, signUpViewModel.Password);
                 if (result.Succeeded)
                 {
@@ -75,6 +75,13 @@ namespace QuizApp.Controllers
             }
 
             return View(signUpViewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LogOut()
+        {
+            await SignInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
