@@ -1,0 +1,26 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityRole<int>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Quiz App | Role";
+}
+
+<h2 class="display-4">Add role</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Role" asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <a class="btn btn-outline-dark" asp-controller="Role" asp-action="Index">Back to list</a>
+                <input type="submit" value="Add" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>

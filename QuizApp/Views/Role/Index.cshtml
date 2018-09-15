@@ -1,0 +1,30 @@
+﻿@model List<Microsoft.AspNetCore.Identity.IdentityRole<int>>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Quiz App | Role";
+}
+
+<h2 class="display-4">Role</h2>
+<hr />
+<a class="link" asp-controller="Role" asp-action="Create">Create new role</a>
+
+<div class="row">
+    <div class="col-4">
+        <ul class="list-group list-group-flush">
+            @foreach (var role in Model)
+            {
+                <li class="list-group-item">
+                    #@role.Id @role.Name
+                    @if (role.Name == "Admin")
+                    {
+                    }
+                    else
+                    {
+                        <a class="btn btn-danger" asp-controller="Role" asp-action="Delete" asp-route-id="@role.Id">Delete</a>
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+</div>
