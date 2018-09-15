@@ -47,5 +47,34 @@ namespace QuizApp.Controllers
 
             return View(signInViewModel);
         }
+
+        [HttpGet]
+        public IActionResult SignUp()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SignUp(SignUpViewModel signUpViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new AppUser(signUpViewModel.Login) { Email = signUpViewModel.Email, UserName = signUpViewModel.Name };
+                var result = await UserManager.CreateAsync(user, signUpViewModel.Password);
+                if (result.Succeeded)
+                {
+                    await SignInManager.PasswordSignInAsync(signUpViewModel.Login, signUpViewModel.Password, true,
+                        false);
+                    return RedirectToAction("Index", "Home");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+
+            return View(signUpViewModel);
+        }
     }
 }

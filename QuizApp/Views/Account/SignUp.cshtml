@@ -1,0 +1,43 @@
+﻿@model QuizApp.ViewModels.SignUpViewModel
+
+@{
+    Layout = "_Account";
+    ViewData["Title"] = "Quiz App | Sign Up";
+}
+
+
+<form class="form-signin" asp-controller="Account" asp-action="SignUp" method="post">
+    <img class="mb-4" src="~/images/logo/icons8-test-zaliczony-40.png" alt="" width="72" height="72">
+    <h1 class="h1 mb-3 display-4">Quiz App</h1>
+    <h4 class="h4 mb-3 font-weight-normal">Sign up</h4>
+    <div class="form-group">
+        <label asp-for="Login" class="sr-only"></label>
+        <input asp-for="Login" type="text" class="form-control" placeholder="Login" required autofocus>
+        <span asp-validation-for="Login" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password" class="sr-only"></label>
+        <input asp-for="Password" type="password" class="form-control" placeholder="Password" required>
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="RepeatPassword" class="sr-only"></label>
+        <input asp-for="RepeatPassword" type="password" class="form-control" placeholder="Repeat Password" required>
+        <span asp-validation-for="RepeatPassword" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Name" class="sr-only"></label>
+        <input asp-for="Name" type="text" class="form-control" placeholder="Name" required>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email" class="sr-only"></label>
+        <input asp-for="Email" type="email" class="form-control" placeholder="Email address" required>
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <button class="btn btn-lg btn-success btn-block" type="submit">Sign in</button>
+    <div class="text-justify">
+        Already have an account? Sign In <a asp-action="SignIn" class="link">here</a>
+    </div>
+    <p class="mt-5 mb-3 text-muted">&copy; @DateTime.Now.Year | Quiz App</p>
+</form>

@@ -2,7 +2,7 @@
 
 @{
     Layout = "_Account";
-    ViewData["Title"] = "Quiz App";
+    ViewData["Title"] = "Quiz App | Sign In";
 }
 
 
@@ -10,13 +10,16 @@
     <img class="mb-4" src="~/images/logo/icons8-test-zaliczony-40.png" alt="" width="72" height="72">
     <h1 class="h1 mb-3 display-4">Quiz App</h1>
     <h4 class="h4 mb-3 font-weight-normal">Please sign in</h4>
-    <label asp-for="Login" class="sr-only">Login</label>
-    <input asp-for="Login" class="form-control" placeholder="Login" required autofocus>
-    <span asp-validation-for="Login" class="text-danger"></span>
-    <label asp-for="Password" class="sr-only">Password</label>
-    <input asp-for="Password" class="form-control" placeholder="Password" required>
-    <span asp-validation-for="Password" class="text-danger"></span>
-
+    <div class="form-group">
+        <label asp-for="Login" class="sr-only">Login</label>
+        <input asp-for="Login" class="form-control" placeholder="Login" required autofocus>
+        <span asp-validation-for="Login" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password" class="sr-only">Password</label>
+        <input asp-for="Password" class="form-control" placeholder="Password" required>
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
     <div class="checkbox mb-3">
         <label>
             <input type="checkbox" asp-for="RememberMe"> Remember me
@@ -24,7 +27,7 @@
     </div>
     <button class="btn btn-lg btn-success btn-block" type="submit">Sign in</button>
     <div class="text-justify">
-        Create an account <a asp-action="Register" class="link">here</a>
+        Create an account <a asp-action="SignUp" class="link">here</a>
     </div>
     <p class="mt-5 mb-3 text-muted">&copy; @DateTime.Now.Year | Quiz App</p>
 </form>
