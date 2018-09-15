@@ -27,15 +27,17 @@ namespace QuizApp.Controllers
         public IActionResult Index()
         {
             List<IdentityRole<int>> roles = RoleManager.Roles.ToList();
+            ViewBag.Users = UserManager.Users.ToList();
             return View(roles);
         }
 
+        //
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
-
+        //
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] IdentityRole<int> role)
@@ -47,6 +49,16 @@ namespace QuizApp.Controllers
             }
 
             return View(role);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddToUserRole(string userName)
+        {
+            var user = await UserManager.FindByNameAsync(userName);
+            if (user == null)
+                return NotFound();
+            await UserManager.AddToRoleAsync(user, "User");
+            return RedirectToAction("Index", "Role");
         }
     }
 }
