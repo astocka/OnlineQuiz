@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using QuizApp.Context;
 using QuizApp.Models;
 
@@ -25,8 +26,9 @@ namespace QuizApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ViewBag.Categories = await _context.QuizCategories.ToListAsync();
             return View();
         }
     }

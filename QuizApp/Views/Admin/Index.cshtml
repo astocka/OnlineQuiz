@@ -5,38 +5,41 @@
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                     <span>Actions</span>
                 </h6>
-                <ul class="nav flex-column">
+                <!-- Nav tabs -->
+                <ul class="nav flex-column" id="adminTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">
+                        <a class="nav-link active" id="categories-tab" data-toggle="tab" href="#categories" role="tab" aria-controls="categories" aria-selected="true">
                             <img src="~/images/icons8-open-64.png" />
                             Categories <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" id="quizzes-tab" data-toggle="tab" href="#quizzes" role="tab" aria-controls="quizzes" aria-selected="true">
                             <img src="~/images/icons8-todo-list-64.png" />
                             Quizzes
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" id="questions-tab" data-toggle="tab" href="#questions" role="tab" aria-controls="questions" aria-selected="true">
                             <img src="~/images/icons8-questions-64.png" />
                             Questions
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" id="results-tab" data-toggle="tab" href="#results" role="tab" aria-controls="results" aria-selected="true">
                             <img src="~/images/icons8-exam-64.png" />
                             Results
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" id="ranking-tab" data-toggle="tab" href="#ranking" role="tab" aria-controls="ranking" aria-selected="true">
                             <img src="~/images/icons8-prize-64.png" />
                             Ranking
                         </a>
                     </li>
                 </ul>
+               
+
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                     <span>Admin</span>
                 </h6>
@@ -58,7 +61,27 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-9 px-4">
             <h2 class="display-4">Admin panel</h2>
+            <hr/>
             <div class="table-responsive">
+                 
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="categories" role="tabpanel" aria-labelledby="categories-tab">
+                        @Html.Partial("~/Views/QuizCategory/Index.cshtml")
+                    </div>
+                    <div class="tab-pane" id="quizzes" role="tabpanel" aria-labelledby="quizzes-tab">
+
+                    </div>
+                    <div class="tab-pane" id="questions" role="tabpanel" aria-labelledby="questions-tab">
+
+                    </div>
+                    <div class="tab-pane" id="results" role="tabpanel" aria-labelledby="results-tab">
+
+                    </div>
+                    <div class="tab-pane" id="ranking" role="tabpanel" aria-labelledby="ranking-tab">
+
+                    </div>
+                </div>
             </div>
         </main>
     </div>

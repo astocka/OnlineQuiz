@@ -1,0 +1,32 @@
+﻿@model QuizApp.Models.QuizCategoryModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete quiz category</h2>
+<hr/>
+
+<table class="table table-responsive">
+    <thead>
+    <tr class="bg-info">
+        <th>Image</th>
+        <th>Category Name</th>
+        <th>Options</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.ImagePath</td>
+            <td>@Model.CategoryName</td>
+            <td>
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="submit" value="Delete" class="btn btn-danger" /> |
+                    <a asp-controller="Admin" asp-action="Index">Back to List</a>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
