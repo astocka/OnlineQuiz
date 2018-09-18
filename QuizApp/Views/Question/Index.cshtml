@@ -9,25 +9,25 @@
 
 <table class="table table-responsive">
     <thead>
-    <tr class="bg-info">
-        <th>QuizId</th>
-        <th>CategoryId</th>
-        <th>Question</th>
-        <th>Correct Answer</th>
-        <th>Options</th>
-    </tr>
+        <tr class="bg-info">
+            <th>CategoryId</th>
+            <th>QuizId</th>
+            <th>Question</th>
+            <th>Correct Answer</th>
+            <th>Options</th>
+        </tr>
     </thead>
     <tbody>
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @item.QuizId
-            </td>
             <td>@item.Quiz.CategoryId</td>
+            <td>@item.QuizId</td>
             <td>@item.Question</td>
             <td>@item.CorrectAnswer</td>
             <td>
+                <a asp-controller="Answer" asp-action="Index" asp-route-questionId="@item.Id">Answer options</a> |
+                <a asp-controller="Answer" asp-action="Create">Add answer option</a> |
                 <a asp-controller="Question" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-controller="Question" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>

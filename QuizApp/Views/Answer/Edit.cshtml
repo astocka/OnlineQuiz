@@ -1,0 +1,37 @@
+﻿@model QuizApp.Models.AnswerModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Edit</h2>
+
+<h4>AnswerModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="AnswerOption" class="control-label"></label>
+                <input asp-for="AnswerOption" class="form-control" />
+                <span asp-validation-for="AnswerOption" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuestionId" class="control-label"></label>
+                <select asp-for="QuestionId" class="form-control" asp-items="ViewBag.QuestionId"></select>
+                <span asp-validation-for="QuestionId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-warning" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

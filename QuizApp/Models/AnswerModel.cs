@@ -15,8 +15,9 @@ namespace QuizApp.Models
         [DisplayName("Answer Option")]
         public string AnswerOption { get; set; }
 
-        [DisplayName("QuestionId")]
-        public int QuestionNo { get; set; }
+        [DisplayName("Question")]
+        public int QuestionId { get; set; }
+        [ForeignKey("QuestionId")]
         public QuestionModel Question { get; set; }
     }
 }
