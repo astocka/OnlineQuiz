@@ -22,14 +22,7 @@
     <tbody>
         <tr>
             <td>
-                @if (Model.CategoryName == null)
-                {
-                    <span>Unknown</span>
-                }
-                else
-                {
-                    @Model.CategoryName
-                }
+                @Model.CategoryId
             </td>
             <td>@Model.Title</td>
             <td>@Model.Description</td>

@@ -9,40 +9,34 @@
 
 <table class="table table-responsive">
     <thead>
-    <tr class="bg-info">
-        <th>Category</th>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Total Time</th>
-        <th>Total Questions</th>
-        <th>Passing Percentage</th>
-        <th>Options</th>
-    </tr>
+        <tr class="bg-info">
+            <th>Category</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Total Time</th>
+            <th>Total Questions</th>
+            <th>Passing Percentage</th>
+            <th>Options</th>
+        </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @if (item.CategoryName == null)
-                {
-                <span>Unknown</span>
-                }
-                else
-                {
-                    @item.CategoryName
-                }
-            </td>
-            <td>@item.Title</td>
-            <td>@item.Description</td>
-            <td>@item.TotalTime</td>
-            <td>@item.TotalQuestions</td>
-            <td>@item.PassingPercentage</td>
-            <td>
-                <a asp-controller="Quiz" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-controller="Quiz" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-    }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.CategoryId
+                </td>
+                <td>@item.Title</td>
+                <td>@item.Description</td>
+                <td>@item.TotalTime</td>
+                <td>@item.TotalQuestions</td>
+                <td>@item.PassingPercentage</td>
+                <td>
+                    <a asp-controller="Question" asp-action="Create" asp-route-quizId="@item.Id">Add question</a> |
+                    <a asp-controller="Quiz" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-controller="Quiz" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

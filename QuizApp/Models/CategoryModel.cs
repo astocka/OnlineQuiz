@@ -16,6 +16,6 @@ namespace QuizApp.Models
         [DisplayName("Image")]
         public string ImagePath { get; set; }
 
-        public ICollection<CategoryQuiz> CategoryQuiz { get; set; }
+        public ICollection<QuizModel> Quizzes { get; set; }
     }
 }

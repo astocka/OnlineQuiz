@@ -24,11 +24,9 @@ namespace QuizApp.Models
         [DisplayName("Passing Percentage")]
         public decimal PassingPercentage { get; set; }
 
-        //public int QuizCategoryId { get; set; }
-        //[ForeignKey("QuizCategoryId")]
-
-        public string CategoryName { get; set; }
-        public ICollection<CategoryQuiz> CategoryQuiz { get; set; }
+        public int CategoryId { get; set; }
+        [ForeignKey("CategoryId")]
+        public CategoryModel Category { get; set; }
 
         public ICollection<QuestionModel> Questions { get; set; }
 

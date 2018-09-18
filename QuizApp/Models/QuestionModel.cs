@@ -18,13 +18,10 @@ namespace QuizApp.Models
         [DisplayName("Correct Answer")]
         public string CorrectAnswer { get; set; }
 
-        public ICollection<AnswerModel> Answers { get; set; }
-        //public int QuizId { get; set; }
-        //[ForeignKey("QuizId")]
+        //public ICollection<AnswerModel> Answers { get; set; }
+        public int QuizId { get; set; }
+        [ForeignKey("QuizId")]
         public QuizModel Quiz { get; set; }
 
-        //public int QuizCategoryId { get; set; }
-        //[ForeignKey("QuizCategoryId")]
-        public CategoryModel Category { get; set; }
     }
 }

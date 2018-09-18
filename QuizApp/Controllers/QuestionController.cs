@@ -10,23 +10,22 @@ using QuizApp.Models;
 
 namespace QuizApp.Controllers
 {
-    public class QuizController : Controller
+    public class QuestionController : Controller
     {
         private readonly AppDbContext _context;
 
-        public QuizController(AppDbContext context)
+        public QuestionController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: Quiz
+        // GET: Question
         public async Task<IActionResult> Index()
         {
-            var quizzes = await _context.Quizzes.Include(c => c.Category).ToListAsync();
-            return View(quizzes);
+            return View(await _context.Questions.Include(q => q.Quiz).ToListAsync());
         }
 
-        // GET: Quiz/Details/5
+        // GET: Question/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,50 +33,52 @@ namespace QuizApp.Controllers
                 return NotFound();
             }
 
-            var quizModel = await _context.Quizzes
+            var questionModel = await _context.Questions
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (quizModel == null)
+            if (questionModel == null)
             {
                 return NotFound();
             }
 
-            return View(quizModel);
+            return View(questionModel);
         }
 
-        // GET: Quiz/Create
-        public async Task<IActionResult> Create(int? categoryId)
+        // GET: Question/Create
+        public async Task<IActionResult> Create(int? quizId)
         {
-            if (categoryId == null)
+            if (quizId == null)
             {
                 return NotFound();
             }
             else
             {
-                var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == categoryId);
-                ViewBag.CategoryName = category.Name;
-                ViewBag.CategoryId = categoryId;
+                var quiz = await _context.Quizzes.FirstOrDefaultAsync(c => c.Id == quizId);
+                ViewBag.QuizTitle = quiz.Title;
+                //ViewBag.CategoryName = quiz.CategoryName;
+                ViewBag.QuizId = quizId;
                 return View();
             }
         }
 
-        // POST: Quiz/Create
+        // POST: Question/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,TotalTime,TotalQuestions,PassingPercentage,CategoryId")] QuizModel quizModel)
+        public async Task<IActionResult> Create([Bind("Id,Question,CorrectAnswer,QuizId")] QuestionModel questionModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Quizzes.Include(c => c.Category);
-                _context.Add(quizModel);
+
+                _context.Questions.Include(q => q.Quiz).ThenInclude(c => c.Category);
+                _context.Add(questionModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Admin");
             }
-            return View(quizModel);
+            return View(questionModel);
         }
 
-        // GET: Quiz/Edit/5
+        // GET: Question/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -85,22 +86,22 @@ namespace QuizApp.Controllers
                 return NotFound();
             }
 
-            var quiz = await _context.Quizzes.Include(c => c.Category).SingleOrDefaultAsync(m => m.Id == id);
-            if (quiz == null)
+            var questionModel = await _context.Questions.Include(q => q.Quiz).SingleOrDefaultAsync(m => m.Id == id);
+            if (questionModel == null)
             {
                 return NotFound();
             }
-            return View(quiz);
+            return View(questionModel);
         }
 
-        // POST: Quiz/Edit/5
+        // POST: Question/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,TotalTime,TotalQuestions,PassingPercentage,CategoryId")] QuizModel quizModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Question,CorrectAnswer,QuizTitle,QuizId")] QuestionModel questionModel)
         {
-            if (id != quizModel.Id)
+            if (id != questionModel.Id)
             {
                 return NotFound();
             }
@@ -109,12 +110,12 @@ namespace QuizApp.Controllers
             {
                 try
                 {
-                    _context.Update(quizModel);
+                    _context.Update(questionModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!QuizModelExists(quizModel.Id))
+                    if (!QuestionModelExists(questionModel.Id))
                     {
                         return NotFound();
                     }
@@ -123,12 +124,12 @@ namespace QuizApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index","Quiz");
+                return RedirectToAction(nameof(Index));
             }
-            return View(quizModel);
+            return View(questionModel);
         }
 
-        // GET: Quiz/Delete/5
+        // GET: Question/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -136,31 +137,30 @@ namespace QuizApp.Controllers
                 return NotFound();
             }
 
-            var quizModel = await _context.Quizzes
+            var questionModel = await _context.Questions
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (quizModel == null)
+            if (questionModel == null)
             {
                 return NotFound();
             }
 
-            return View(quizModel);
+            return View(questionModel);
         }
 
-        // POST: Quiz/Delete/5
+        // POST: Question/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var quizModel = await _context.Quizzes.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Quizzes.Remove(quizModel);
+            var questionModel = await _context.Questions.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Questions.Remove(questionModel);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Quiz");
+            return RedirectToAction(nameof(Index));
         }
 
-        private bool QuizModelExists(int id)
+        private bool QuestionModelExists(int id)
         {
-            return _context.Quizzes.Any(e => e.Id == id);
+            return _context.Questions.Any(e => e.Id == id);
         }
-
     }
 }
