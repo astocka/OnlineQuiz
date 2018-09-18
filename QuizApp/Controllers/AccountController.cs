@@ -83,5 +83,33 @@ namespace QuizApp.Controllers
             await SignInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindByNameAsync(User.Identity.Name);
+                var result = await UserManager.ChangePasswordAsync(user,
+                    viewModel.CurrentPassword, viewModel.NewPassword);
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignOutAsync();
+                    return RedirectToAction("SignIn", "Account");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Wrong login or password");
+                }
+            }
+            return View(viewModel);
+        }
+
     }
 }
