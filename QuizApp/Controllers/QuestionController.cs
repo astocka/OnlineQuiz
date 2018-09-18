@@ -54,7 +54,6 @@ namespace QuizApp.Controllers
             {
                 var quiz = await _context.Quizzes.FirstOrDefaultAsync(c => c.Id == quizId);
                 ViewBag.QuizTitle = quiz.Title;
-                //ViewBag.CategoryName = quiz.CategoryName;
                 ViewBag.QuizId = quizId;
                 return View();
             }

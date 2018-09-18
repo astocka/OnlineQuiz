@@ -70,7 +70,7 @@ namespace QuizApp.Controllers
 
                 _context.Add(answerModel);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Question");
             }
             ViewData["QuestionId"] = new SelectList(_context.Questions, "Id", "Question", answerModel.QuestionId);
             return View(answerModel);
@@ -89,7 +89,7 @@ namespace QuizApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["QuestionId"] = new SelectList(_context.Questions, "Id", "CorrectAnswer", answerModel.QuestionId);
+            ViewData["QuestionId"] = new SelectList(_context.Questions, "Id", "Question", answerModel.QuestionId);
             return View(answerModel);
         }
 
@@ -123,9 +123,9 @@ namespace QuizApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index", "Admin");
+                return RedirectToAction("Index", "Question");
             }
-            ViewData["QuestionId"] = new SelectList(_context.Questions, "Id", "CorrectAnswer", answerModel.QuestionId);
+            ViewData["QuestionId"] = new SelectList(_context.Questions, "Id", "Question", answerModel.QuestionId);
             return View(answerModel);
         }
 
@@ -156,7 +156,7 @@ namespace QuizApp.Controllers
             var answerModel = await _context.Answers.SingleOrDefaultAsync(m => m.Id == id);
             _context.Answers.Remove(answerModel);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("Index", "Question");
         }
 
         private bool AnswerModelExists(int id)

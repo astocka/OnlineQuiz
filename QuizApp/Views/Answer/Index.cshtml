@@ -3,76 +3,28 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Admin.cshtml";
+    var i = 1;
 }
 
 <h3>Quiz: @ViewBag.QuizTitle</h3>
-<h3>Question: @ViewBag.Question</h3>
+<h4>Question: @ViewBag.Question</h4>
 <h4>Correct Answer: @ViewBag.CorrectAnswer</h4>
 <hr/>
 
 <h4 class="h4 font-weight-bold">Answer options</h4>
 
+<div class="col-6">
+    <ul class="list-group">
+        @foreach (var item in Model)
+        {
+            <li class="list-group-item">#@i @item.AnswerOption</li>
+            <li class="list-group-item list-group-item-warning"><a asp-controller="Answer" asp-action="Edit" asp-route-id="@item.Id">Edit</a></li>
+            <li class="list-group-item list-group-item-danger"><a asp-controller="Answer" asp-action="Delete" asp-route-id="@item.Id">Delete</a></li>
+            i += 1;
+        }
 
-<ul class="list-group">
-    @foreach (var item in Model)
-    {
-        <li class="list-group-item">@item.AnswerOption</li>
-        <li class="list-group-item list-group-item-warning"><a asp-controller="Answer" asp-action="Edit" asp-route-id="@item.Id">Edit</a></li>
-        <li class="list-group-item list-group-item-danger"><a asp-controller="Answer" asp-action="Delete" asp-route-id="@item.Id">Delete</a></li>
-    }
-
-</ul>
-
-@*<table class="table table-responsive">
-    <thead>
-        <tr class="bg-info">
-            <td>Answer Option</td>
-            <th>Options</th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.AnswerOption</td>
-            <td>
-                <a asp-controller="Answer" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-controller="Answer" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>*@
-
-@*<h2>Answers</h2>
-
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.AnswerOption)
-                </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Question)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnswerOption)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Question.CorrectAnswer)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>*@
+    </ul>
+</div>
+<div>
+    <a asp-controller="Question" asp-action="Index">Back to List</a>
+</div>
