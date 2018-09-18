@@ -2,13 +2,23 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Admin.cshtml";
+    if (User.IsInRole("Admin"))
+    {
+        Layout = "~/Views/Shared/_Admin.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_User.cshtml";
+    }
 }
 
 <h4 class="h4 font-weight-bold">Quizzes</h4>
 
-<table class="table table-responsive">
-    <thead>
+
+@if (User.IsInRole("Admin"))
+{
+    <table class="table table-responsive">
+        <thead>
         <tr class="bg-info">
             <th>Category</th>
             <th>Title</th>
@@ -18,8 +28,8 @@
             <th>Passing Percentage</th>
             <th>Options</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         @foreach (var item in Model)
         {
             <tr>
@@ -38,5 +48,25 @@
                 </td>
             </tr>
         }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="card-group">
+        @foreach (var quiz in Model)
+        {
+            <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+                <h5 class="card-header">Quiz: @quiz.Title</h5>
+                <div class="card-body">
+                    <p class="card-text">Category: @quiz.Category.Name</p>
+                    <h5 class="card-title">@quiz.Description</h5>
+                    <p class="card-text">Time: @quiz.TotalTime min</p>
+                    <p class="card-text">Questions: @quiz.TotalQuestions</p>
+                    <p class="card-text">Passing %: @quiz.PassingPercentage %</p>
+                </div>
+                <div class="card-footer bg-transparent border-success">Attempt now!</div>
+            </div>
+        }
+    </div>
+}
