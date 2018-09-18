@@ -1,0 +1,35 @@
+﻿@model IEnumerable<QuizApp.Models.CategoryModel>
+
+@{
+    ViewData["Title"] = "Quiz App | Categories";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h4 class="h4 font-weight-bold">Categories</h4>
+
+<p>
+    <a asp-controller="Category" asp-action="Create">Create New</a>
+</p>
+<table class="table table-responsive">
+    <thead>
+    <tr class="bg-info">
+        <th>Image</th>
+        <th>Category Name</th>
+        <th>Options</th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.ImagePath</td>
+            <td>@item.Name</td>
+            <td>
+                <a asp-controller="Quiz" asp-action="Create" asp-route-categoryId="@item.Id">Add quiz</a> |
+                <a asp-controller="Category" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-controller="Category" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

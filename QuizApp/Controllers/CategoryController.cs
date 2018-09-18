@@ -10,11 +10,11 @@ using QuizApp.Models;
 
 namespace QuizApp.Controllers
 {
-    public class QuizCategoryController : Controller
+    public class CategoryController : Controller
     {
         private readonly AppDbContext _context;
 
-        public QuizCategoryController(AppDbContext context)
+        public CategoryController(AppDbContext context)
         {
             _context = context;
         }
@@ -22,10 +22,11 @@ namespace QuizApp.Controllers
         // GET: QuizCategory
         public async Task<IActionResult> Index()
         {
-            ViewBag.Categories = await _context.QuizCategories.ToListAsync();
+            ViewBag.Categories = await _context.Categories.ToListAsync();
+            var categories = await _context.Categories.ToListAsync();
+            //ViewBag.QuizzesWithCategory = await _context.Quizzes.Include(c => c.QuizCategory).ToListAsync();
 
-            //var categories = await _context.QuizCategories.ToListAsync();
-            return View();
+            return View(categories);
         }
 
         // GET: QuizCategory/Details/5
@@ -36,7 +37,7 @@ namespace QuizApp.Controllers
                 return NotFound();
             }
 
-            var quizCategoryModel = await _context.QuizCategories
+            var quizCategoryModel = await _context.Categories
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (quizCategoryModel == null)
             {
@@ -57,15 +58,15 @@ namespace QuizApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CategoryName,ImagePath")] QuizCategoryModel quizCategoryModel)
+        public async Task<IActionResult> Create([Bind("Id,Name,ImagePath")] CategoryModel categoryModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(quizCategoryModel);
+                _context.Categories.Add(categoryModel);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Admin");
+                return RedirectToAction("Index", "Category");
             }
-            return View(quizCategoryModel);
+            return View(categoryModel);
         }
 
         // GET: QuizCategory/Edit/5
@@ -76,12 +77,12 @@ namespace QuizApp.Controllers
                 return NotFound();
             }
 
-            var quizCategoryModel = await _context.QuizCategories.SingleOrDefaultAsync(m => m.Id == id);
-            if (quizCategoryModel == null)
+            var categoryModel = await _context.Categories.SingleOrDefaultAsync(m => m.Id == id);
+            if (categoryModel == null)
             {
                 return NotFound();
             }
-            return View(quizCategoryModel);
+            return View(categoryModel);
         }
 
         // POST: QuizCategory/Edit/5
@@ -89,9 +90,9 @@ namespace QuizApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CategoryName,ImagePath")] QuizCategoryModel quizCategoryModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ImagePath")] CategoryModel categoryModel)
         {
-            if (id != quizCategoryModel.Id)
+            if (id != categoryModel.Id)
             {
                 return NotFound();
             }
@@ -100,12 +101,12 @@ namespace QuizApp.Controllers
             {
                 try
                 {
-                    _context.Update(quizCategoryModel);
+                    _context.Update(categoryModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!QuizCategoryModelExists(quizCategoryModel.Id))
+                    if (!QuizCategoryModelExists(categoryModel.Id))
                     {
                         return NotFound();
                     }
@@ -114,9 +115,9 @@ namespace QuizApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index", "Admin");
+                return RedirectToAction("Index", "Category");
             }
-            return View(quizCategoryModel);
+            return View(categoryModel);
         }
 
         // GET: QuizCategory/Delete/5
@@ -127,14 +128,14 @@ namespace QuizApp.Controllers
                 return NotFound();
             }
 
-            var quizCategoryModel = await _context.QuizCategories
+            var categoryModel = await _context.Categories
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (quizCategoryModel == null)
+            if (categoryModel == null)
             {
                 return NotFound();
             }
 
-            return View(quizCategoryModel);
+            return View(categoryModel);
         }
 
         // POST: QuizCategory/Delete/5
@@ -142,15 +143,15 @@ namespace QuizApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var quizCategoryModel = await _context.QuizCategories.SingleOrDefaultAsync(m => m.Id == id);
-            _context.QuizCategories.Remove(quizCategoryModel);
+            var quizCategoryModel = await _context.Categories.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Categories.Remove(quizCategoryModel);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("Index", "Category");
         }
 
         private bool QuizCategoryModelExists(int id)
         {
-            return _context.QuizCategories.Any(e => e.Id == id);
+            return _context.Categories.Any(e => e.Id == id);
         }
     }
 }

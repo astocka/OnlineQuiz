@@ -1,0 +1,48 @@
+﻿@model QuizApp.Models.QuizModel
+
+@{
+    ViewData["Title"] = "Quiz App | Delete";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h4 class="h4 font-weight-bold">Delete</h4>
+
+<table class="table table-responsive">
+    <thead>
+        <tr class="bg-info">
+            <th>Category</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Total Time</th>
+            <th>Total Questions</th>
+            <th>Passing Percentage</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @if (Model.CategoryName == null)
+                {
+                    <span>Unknown</span>
+                }
+                else
+                {
+                    @Model.CategoryName
+                }
+            </td>
+            <td>@Model.Title</td>
+            <td>@Model.Description</td>
+            <td>@Model.TotalTime</td>
+            <td>@Model.TotalQuestions</td>
+            <td>@Model.PassingPercentage</td>
+            <td>
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="submit" value="Delete" class="btn btn-danger" /> |
+                    <a asp-controller="Quiz" asp-action="Index">Back to List</a>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>

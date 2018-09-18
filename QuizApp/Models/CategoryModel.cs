@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace QuizApp.Models
 {
-    public class QuizCategoryModel
+    public class CategoryModel
     {
         public int Id { get; set; }
         [Required]
-        public string CategoryName { get; set; }
+        [DisplayName("Category")]
+        public string Name { get; set; }
+        [DisplayName("Image")]
         public string ImagePath { get; set; }
 
-        public ICollection<QuizModel> Quiz { get; set; }
+        public ICollection<CategoryQuiz> CategoryQuiz { get; set; }
     }
 }

@@ -28,7 +28,8 @@ namespace QuizApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            ViewBag.Categories = await _context.QuizCategories.ToListAsync();
+            ViewBag.Categories = await _context.Categories.ToListAsync();
+            //ViewBag.QuizzesWithCategory = await _context.Quizzes.Include(c => c.QuizCategory).ToListAsync();
             return View();
         }
     }

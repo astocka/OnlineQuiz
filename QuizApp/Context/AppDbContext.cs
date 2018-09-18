@@ -16,7 +16,7 @@ namespace QuizApp.Context
         }
 
         public DbSet<AppUser> AppUsers { get; set; }
-        public DbSet<QuizCategoryModel> QuizCategories { get; set; }
+        public DbSet<CategoryModel> Categories { get; set; }
         public DbSet<QuizModel> Quizzes { get; set; }
         public DbSet<QuestionModel> Questions { get; set; }
         public DbSet<AnswerModel> Answers { get; set; }
