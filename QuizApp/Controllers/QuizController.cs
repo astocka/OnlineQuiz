@@ -34,7 +34,7 @@ namespace QuizApp.Controllers
                 return NotFound();
             }
 
-            var quizModel = await _context.Quizzes
+            var quizModel = await _context.Quizzes.Include(q => q.Questions).ThenInclude(a => a.Answers)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (quizModel == null)
             {
@@ -123,7 +123,7 @@ namespace QuizApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index","Quiz");
+                return RedirectToAction("Index", "Quiz");
             }
             return View(quizModel);
         }
@@ -162,5 +162,54 @@ namespace QuizApp.Controllers
             return _context.Quizzes.Any(e => e.Id == id);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Attempt(int? quizId)
+        {
+            var attemptQuiz = await _context.Quizzes.Include(c => c.Category).Include(q => q.Questions).ThenInclude(a => a.Answers)
+                .FirstOrDefaultAsync(quiz => quiz.Id == quizId);
+
+            var question = attemptQuiz.Questions.FirstOrDefault();
+
+            if (attemptQuiz == null || question == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                ViewBag.QuizCategory = attemptQuiz.Category.Name;
+                ViewBag.QuizTitle = attemptQuiz.Title;
+                ViewBag.QuizCorrectAnswer = question.CorrectAnswer;
+                ViewBag.QuizUserName = User.Identity.Name;
+                ViewBag.QuizQuestions = attemptQuiz.Questions;
+                ViewBag.QuizId = quizId;
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Attempt([Bind("Id,QuizCategory,QuizTitle,AttemptQuestion,AttemptAnswer,CorrectAnswer,UserName")] AttemptModel attempt)
+        {
+            if (attempt == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var question = _context.Questions.Include(a => a.Answers).FirstOrDefault();
+
+                if (attempt.CorrectAnswer == question.CorrectAnswer)
+                {
+                    attempt.Subscore = 1;
+                }
+                else
+                {
+                    attempt.Subscore = 0;
+                }
+
+                _context.Attempts.Add(attempt);
+                await _context.SaveChangesAsync();
+                return Content("Quiz sent");
+            }
+        }
     }
 }

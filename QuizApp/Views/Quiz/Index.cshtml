@@ -1,4 +1,4 @@
-﻿@model IEnumerable<QuizApp.Models.QuizModel>
+﻿@model System.Collections.Generic.IEnumerable<QuizApp.Models.QuizModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -19,35 +19,33 @@
 {
     <table class="table table-responsive">
         <thead>
-        <tr class="bg-info">
-            <th>Category</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Total Time</th>
-            <th>Total Questions</th>
-            <th>Passing Percentage</th>
-            <th>Options</th>
-        </tr>
+            <tr class="bg-info">
+                <th>Category</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Total Time</th>
+                <th>Total Questions</th>
+                <th>Passing Percentage</th>
+                <th>Options</th>
+            </tr>
         </thead>
         <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @item.CategoryId
-                </td>
-                <td>@item.Title</td>
-                <td>@item.Description</td>
-                <td>@item.TotalTime</td>
-                <td>@item.TotalQuestions</td>
-                <td>@item.PassingPercentage</td>
-                <td>
-                    <a asp-controller="Question" asp-action="Create" asp-route-quizId="@item.Id">Add question</a> |
-                    <a asp-controller="Quiz" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-controller="Quiz" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Category.Name</td>
+                    <td>@item.Title</td>
+                    <td>@item.Description</td>
+                    <td>@item.TotalTime min</td>
+                    <td>@item.TotalQuestions</td>
+                    <td>@item.PassingPercentage %</td>
+                    <td>
+                        <a asp-controller="Question" asp-action="Create" asp-route-quizId="@item.Id">Add question</a> |
+                        <a asp-controller="Quiz" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-controller="Quiz" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 }
@@ -63,9 +61,13 @@ else
                     <h5 class="card-title">@quiz.Description</h5>
                     <p class="card-text">Time: @quiz.TotalTime min</p>
                     <p class="card-text">Questions: @quiz.TotalQuestions</p>
-                    <p class="card-text">Passing %: @quiz.PassingPercentage %</p>
+                    <p class="card-text">Passing: @quiz.PassingPercentage %</p>
                 </div>
-                <div class="card-footer bg-transparent border-success">Attempt now!</div>
+                <div class="card-footer bg-transparent border-light">
+                    <div class="btn-group">
+                        <a class="btn btn-warning" asp-controller="Quiz" asp-action="Attempt" asp-route-quizId="@quiz.Id">Attempt now!</a>
+                    </div>
+                </div>
             </div>
         }
     </div>

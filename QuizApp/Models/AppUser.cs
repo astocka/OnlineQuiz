@@ -17,5 +17,6 @@ namespace QuizApp.Models
         }
 
         public string Name { get; set; }
+        //public ICollection<AttemptModel> Attempts { get; set; }
     }
 }

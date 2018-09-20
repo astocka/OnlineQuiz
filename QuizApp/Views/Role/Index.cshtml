@@ -1,4 +1,4 @@
-﻿@model List<Microsoft.AspNetCore.Identity.IdentityRole<int>>
+﻿@model System.Collections.Generic.List<Microsoft.AspNetCore.Identity.IdentityRole<int>>
 
 @{
     Layout = "_Layout";
@@ -27,7 +27,7 @@
             @foreach (var user in ViewBag.Users)
             {
                 <li class="list-group-item">
-                    #@user.Id @user.Name
+                    #@user.Id @user.Name 
                     @if (user.Name == "admin")
                     {
                     }

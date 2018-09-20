@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using QuizApp.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -58,6 +59,18 @@ namespace QuizApp.Controllers
             if (user == null)
                 return NotFound();
             await UserManager.AddToRoleAsync(user, "User");
+            return RedirectToAction("Index", "Role");
+        }
+
+
+        // delete it before Database Initialize
+        [HttpPost]
+        public async Task<IActionResult> AddToAdminRole()
+        {
+            var user = await UserManager.GetUserAsync(User);
+            if (user == null)
+                return NotFound();
+            await UserManager.AddToRoleAsync(user, "Admin");
             return RedirectToAction("Index", "Role");
         }
     }

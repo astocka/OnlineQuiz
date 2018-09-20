@@ -1,4 +1,4 @@
-﻿@model IEnumerable<QuizApp.Models.QuestionModel>
+﻿@model System.Collections.Generic.IEnumerable<QuizApp.Models.QuestionModel>
 
 @{
     ViewData["Title"] = "Quiz App";
@@ -10,8 +10,8 @@
 <table class="table table-responsive">
     <thead>
         <tr class="bg-info">
-            <th>CategoryId</th>
-            <th>QuizId</th>
+            <th>Category</th>
+            <th>Quiz Title</th>
             <th>Question</th>
             <th>Correct Answer</th>
             <th>Options</th>
@@ -21,8 +21,8 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>@item.Quiz.CategoryId</td>
-            <td>@item.QuizId</td>
+            <td>@item.Quiz.Category.Name</td>
+            <td>@item.Quiz.Title</td>
             <td>@item.Question</td>
             <td>@item.CorrectAnswer</td>
             <td>

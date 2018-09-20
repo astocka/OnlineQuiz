@@ -19,5 +19,7 @@ namespace QuizApp.Models
         public int QuestionId { get; set; }
         [ForeignKey("QuestionId")]
         public QuestionModel Question { get; set; }
+
+        //public ICollection<AttemptModel> Attempts { get; set; }
     }
 }

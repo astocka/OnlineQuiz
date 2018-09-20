@@ -22,7 +22,7 @@ namespace QuizApp.Controllers
         // GET: Question
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Questions.Include(q => q.Quiz).ToListAsync());
+            return View(await _context.Questions.Include(q => q.Quiz).ThenInclude(c => c.Category).ToListAsync());
         }
 
         // GET: Question/Details/5
