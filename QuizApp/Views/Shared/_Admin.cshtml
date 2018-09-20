@@ -48,7 +48,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link">
+                                <a class="nav-link" asp-controller="Quiz" asp-action="Ranking">
                                     <img src="~/images/icons8-prize-64.png" />
                                     Ranking
                                 </a>
@@ -60,6 +60,12 @@
                             <span>Admin</span>
                         </h6>
                         <ul class="nav flex-column mb-2">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Account" asp-action="LogOut">
+                                    <img src="~/images/icons8-customer-64.png" />
+                                    Log out
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Account" asp-action="ChangePassword">
                                     <img src="~/images/icons8-password-64.png" />

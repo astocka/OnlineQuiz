@@ -225,5 +225,19 @@ namespace QuizApp.Controllers
                 return View(results);
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Ranking()
+        {
+            var result = await _context.Attempts.OrderByDescending(s => s.Subscore).ToListAsync();
+            if (result == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return View(result);
+            }
+        }
     }
 }

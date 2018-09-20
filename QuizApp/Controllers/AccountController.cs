@@ -17,7 +17,7 @@ namespace QuizApp.Controllers
         protected UserManager<AppUser> UserManager { get; }
         protected SignInManager<AppUser> SignInManager { get; }
         protected RoleManager<IdentityRole<int>> RoleManager;
-        protected  AppDbContext Context { get; }
+        protected AppDbContext Context { get; }
 
         public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole<int>> roleManager, AppDbContext context)
         {
@@ -26,7 +26,7 @@ namespace QuizApp.Controllers
             RoleManager = roleManager;
             Context = context;
         }
-        
+
         [HttpGet]
         public IActionResult SignIn()
         {
@@ -41,7 +41,17 @@ namespace QuizApp.Controllers
                 var result = await SignInManager.PasswordSignInAsync(signInViewModel.Login, signInViewModel.Password,
                     signInViewModel.RememberMe, false);
                 if (result.Succeeded)
-                    return RedirectToAction("Index", "Home");
+                {
+                    if (User.IsInRole("Admin"))
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "User");
+                    }
+                }
+
                 ModelState.AddModelError("", "Wrong login or password");
             }
 
@@ -65,7 +75,7 @@ namespace QuizApp.Controllers
                 {
                     await SignInManager.PasswordSignInAsync(signUpViewModel.Login, signUpViewModel.Password, true,
                         false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("SignIn", "Account");
                 }
 
                 foreach (var error in result.Errors)
@@ -81,7 +91,7 @@ namespace QuizApp.Controllers
         public async Task<IActionResult> LogOut()
         {
             await SignInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("SignIn", "Account");
         }
 
         [HttpGet]
