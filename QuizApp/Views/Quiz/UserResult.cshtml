@@ -1,0 +1,44 @@
+﻿@model List<QuizApp.Models.AttemptModel>
+
+@{
+    ViewData["Title"] = "Quiz App | My Results";
+    Layout = "~/Views/Shared/_User.cshtml";
+    var cardColor = "";
+
+}
+
+<div class="row">
+    @foreach (var attempt in Model)
+    {
+        if (attempt.CorrectAnswer == attempt.AttemptAnswer)
+        {
+            cardColor = "bg-success";
+        }
+        else
+        {
+            cardColor = "bg-warning";
+        }
+        <div class="card col-sm-4 text-white @cardColor">
+            <div class="card-header">
+                <h3 class="card-title">Quiz: @attempt.QuizTitle</h3>
+                <h6 class="card-subtitle mb-2">Category: @attempt.QuizCategory</h6>
+            </div>
+            <div class="card-body">
+                <h4 class="card-text">Question: @attempt.AttemptQuestion</h4>
+                @if (attempt.Subscore == 1)
+                {
+                    <h5 class="card-text">Your Answer: @attempt.AttemptAnswer<img src="~/images/icons8-checked-checkbox-64.png" /></h5>
+                }
+                else
+                {
+                    <h5 class="card-text">Your Answer: @attempt.AttemptAnswer<img src="~/images/icons8-delete-64.png" /></h5>
+                    <h5 class="card-text">Correct Answer: @attempt.CorrectAnswer</h5>
+                }
+                <h5 class="card-text">Subscore: @attempt.Subscore</h5>
+
+                <a class="btn btn-secondary" asp-controller="User" asp-action="Index">Back to User panel</a>
+            </div>
+        </div>
+    }
+</div>
+

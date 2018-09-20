@@ -197,7 +197,7 @@ namespace QuizApp.Controllers
             {
                 var question = _context.Questions.Include(a => a.Answers).FirstOrDefault();
 
-                if (attempt.CorrectAnswer == question.CorrectAnswer)
+                if (attempt.AttemptAnswer == question.CorrectAnswer)
                 {
                     attempt.Subscore = 1;
                 }
@@ -208,7 +208,21 @@ namespace QuizApp.Controllers
 
                 _context.Attempts.Add(attempt);
                 await _context.SaveChangesAsync();
-                return Content("Quiz sent");
+                return RedirectToAction("Index","User");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UserResult(string userName)
+        {
+            if (userName == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var results = await _context.Attempts.Where(u => u.UserName == userName).ToListAsync();
+                return View(results);
             }
         }
     }
