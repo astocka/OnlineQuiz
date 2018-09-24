@@ -8,37 +8,53 @@
 }
 
 <div class="row">
-    @foreach (var attempt in Model)
-    {
-        if (attempt.CorrectAnswer == attempt.AttemptAnswer)
-        {
-            cardColor = "bg-success";
-        }
-        else
-        {
-            cardColor = "bg-warning";
-        }
-        <div class="card col-sm-4 text-white @cardColor">
-            <div class="card-header">
-                <h3 class="card-title">Quiz: @attempt.QuizTitle</h3>
-                <h6 class="card-subtitle mb-2">Category: @attempt.QuizCategory</h6>
-            </div>
-            <div class="card-body">
-                <h4 class="card-text">Question: @attempt.AttemptQuestion</h4>
-                @if (attempt.Subscore == 1)
+   
+        <div class="col-3">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                @foreach (var item in ViewBag.UserResults)
                 {
-                    <h5 class="card-text">Your Answer: @attempt.AttemptAnswer<img src="~/images/icons8-checked-checkbox-64.png" /></h5>
+                <a class="nav-link" id="v-pills-@item.Id-tab" data-toggle="pill" href="#v-pills-@item.Id" role="tab" aria-controls="v-pills-@item.Id" aria-selected="true">Result #@item.Id</a>
                 }
-                else
-                {
-                    <h5 class="card-text">Your Answer: @attempt.AttemptAnswer<img src="~/images/icons8-delete-64.png" /></h5>
-                    <h5 class="card-text">Correct Answer: @attempt.CorrectAnswer</h5>
-                }
-                <h5 class="card-text">Subscore: @attempt.Subscore</h5>
-
-                <a class="btn btn-secondary" asp-controller="User" asp-action="Index">Back to User panel</a>
             </div>
         </div>
-    }
+        <div class="col-9">
+            <div class="tab-content" id="v-pills-tabContent">
+            @foreach (var item in ViewBag.UserResults)
+            {
+                <div class="tab-pane fade" id="v-pills-@item.Id" role="tabpanel" aria-labelledby="v-pills-@item.Id-tab">
+                    <!-- Result content -->
+                    <div class="row">
+                      
+                        @foreach (var attempt in Model)
+                        {
+                            if (item.Id == attempt.ResultNo)
+                             {
+                                 <div class="col-sm-12">
+                                     <h6 class="bg-info text-white">Quiz: @attempt.QuizTitle</h6>
+                                     <h5 class="font-italic">Question: @attempt.AttemptQuestion</h5>
+                                     @if (attempt.Subscore == 1)
+                                     {
+                                         <h5 class="text-success">Your Answer: @attempt.AttemptAnswer</h5>
+                                     }
+                                     else
+                                     {
+                                         <h5 class="text-danger">Your Answer: @attempt.AttemptAnswer</h5>
+                                         <h5 class="font-weight-bold">Correct Answer: @attempt.CorrectAnswer</h5>
+                                     }
+                                     <h5 class="text-uppercase">Subscore: @attempt.Subscore</h5>
+                                     <hr/>
+                                 </div>
+                                
+                             }
+                        }
+                    </div>
+                    <!-- End of result content -->
+                </div>
+            }
+            </div>
+        </div>
 </div>
+
+<a class="btn btn-secondary" asp-controller="User" asp-action="Index">Back to User panel</a>
+
 

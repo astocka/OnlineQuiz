@@ -26,6 +26,8 @@ namespace QuizApp.Models
         [DisplayName("User")]
         public string UserName { get; set; }
 
+        public int? ResultNo { get; set; }
+
 
         //public int AttemptQuizId { get; set; }
         //[ForeignKey("AttemptQuizId")]

@@ -238,6 +238,7 @@ namespace QuizApp.Controllers
                     await _context.SaveChangesAsync();
                 }
 
+                attempt.ResultNo = _context.Results.LastOrDefault(u => u.UserName == attempt.UserName).Id;
                 _context.Attempts.Add(attempt);
                 await _context.SaveChangesAsync();
 
@@ -264,7 +265,8 @@ namespace QuizApp.Controllers
             }
             else
             {
-                var results = await _context.Attempts.Where(u => u.UserName == userName).OrderBy(q => q.QuizTitle).ToListAsync();
+                var results = await _context.Attempts.Where(u => u.UserName == userName).ToListAsync();
+                ViewBag.UserResults = await _context.Results.Where(u => u.UserName == userName).ToListAsync();
                 return View(results);
             }
         }
@@ -272,7 +274,7 @@ namespace QuizApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Ranking()
         {
-            var result = await _context.Results.OrderByDescending(s => s.TotalScore).OrderBy(d => d.AttemptDate).ToListAsync();
+            var result = await _context.Results.OrderByDescending(s => s.TotalScore).OrderBy(u => u.UserName).ToListAsync();
             if (result == null)
             {
                 return NotFound();
