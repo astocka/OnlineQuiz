@@ -11,19 +11,16 @@ namespace QuizApp.Models
     {
         public int Id { get; set; }
 
-        [Required]
         public string QuizCategory { get; set; }
-        [Required]
         public string QuizTitle { get; set; }
 
-        public int TotalScore { get; set; }
+        public int? TotalScore { get; set; }
 
-        public DateTime Date { get; set; }
+        [DisplayName("Date")]
+        public string AttemptDate { get; set; }
 
         [DisplayName("User")]
         public string UserName { get; set; }
-
-        public int? Attempt { get; set; }
 
     }
 }

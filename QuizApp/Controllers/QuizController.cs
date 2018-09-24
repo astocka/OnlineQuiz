@@ -190,6 +190,7 @@ namespace QuizApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Attempt(int quizId, int questionNumber, [Bind("Id,QuizCategory,QuizTitle,AttemptQuestion,AttemptAnswer,CorrectAnswer,UserName")] AttemptModel attempt)
         {
+
             if (attempt == null)
             {
                 return NotFound();
@@ -208,6 +209,33 @@ namespace QuizApp.Controllers
                 else
                 {
                     attempt.Subscore = 0;
+                }
+
+                if (questionNumber == 1)
+                {
+                    var resultModel = new ResultModel
+                    {
+                        QuizCategory = attempt.QuizCategory,
+                        QuizTitle = attempt.QuizTitle,
+                        TotalScore = attempt.Subscore,
+                        AttemptDate = DateTime.Now.ToString("g"),
+                        UserName = attempt.UserName,
+                    };
+
+                    _context.Results.Add(resultModel);
+                    await _context.SaveChangesAsync();
+                }
+                else if (questionNumber > 1)
+                {
+                    var result = _context.Results.LastOrDefault(u => u.UserName == attempt.UserName);
+                    var subscoreUpdate = result.TotalScore + attempt.Subscore;
+
+                    result.TotalScore = subscoreUpdate;
+                    result.AttemptDate = DateTime.Now.ToString("g");
+
+                    _context.Results.LastOrDefault(u => u.UserName == attempt.UserName);
+                    _context.Update(result);
+                    await _context.SaveChangesAsync();
                 }
 
                 _context.Attempts.Add(attempt);
