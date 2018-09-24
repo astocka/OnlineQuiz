@@ -21,6 +21,6 @@ namespace QuizApp.Context
         public DbSet<QuestionModel> Questions { get; set; }
         public DbSet<AnswerModel> Answers { get; set; }
         public DbSet<AttemptModel> Attempts { get; set; }
-
+        public DbSet<ResultModel> Results { get; set; }
     }
 }
