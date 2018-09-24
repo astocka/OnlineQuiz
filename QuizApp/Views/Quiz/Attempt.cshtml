@@ -9,18 +9,15 @@
     <div class="card-body">
         <h2 class="card-title">Quiz: @ViewBag.QuizTitle</h2>
         <p class="card-text">
-            <!-- form question -->
-            <form asp-controller="Quiz" asp-action="Attempt" method="post">
-                @foreach (var question in ViewBag.QuizQuestions)
-                {
+            <form asp-controller="Quiz" asp-action="Attempt" asp-route-quizId="@ViewBag.QuizId" asp-route-questionNumber="@ViewBag.QuestionNumber" method="post">
                     <div class="card">
                         <div class="card-header">
-                            Question: @question.Question
-                            <input type="hidden" asp-for="AttemptQuestion" value="@question.Question" />
+                            Question: @ViewBag.Question.Question
+                            <input type="hidden" asp-for="AttemptQuestion" value="@ViewBag.Question.Question" />
 
                         </div>
                         <div class="card-body">
-                            @foreach (var answer in question.Answers)
+                            @foreach (var answer in ViewBag.Question.Answers)
                             {
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" asp-for="AttemptAnswer" value="@answer.AnswerOption">
@@ -29,47 +26,15 @@
                                     </label>
                                 </div>
                             }
-
                         </div>
                     </div>
-                }
-
                 <input type="hidden" asp-for="QuizCategory" value="@ViewBag.QuizCategory" />
                 <input type="hidden" asp-for="QuizTitle" value="@ViewBag.QuizTitle" />
                 <input type="hidden" asp-for="CorrectAnswer" value="@ViewBag.QuizCorrectAnswer" />
                 <input type="hidden" asp-for="UserName" value="@ViewBag.QuizUserName" />
                 <button class="btn btn-success" type="submit">Submit</button>
             </form>
-
-            <!-- End form question -->
-            <!-- Questions -->
-            @*foreach (var question in ViewBag.Quiz.Questions)
-                {
-                    <div class="card">
-                        <div class="card-header">
-                            Question #i: question.Question
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            foreach (var answer in question.Answers)
-                            {
-                                <li class="list-group-item">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" asp-for="UserAnswer" value="answer.AnswerOption">
-                                        <label class="form-check-label">
-                                            answer.AnswerOption
-                                        </label>
-                                    </div>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                    i++;
-                }*@
-            <!-- End questions -->
         </p>
-        @*<form asp-controller="User" asp-action="Attempt" method="post">
-                <button class="btn btn-success" type="submit">Submit</button>
-            </form>*@
         <a class="link" asp-controller="User" asp-action="Index">Back to User panel</a>
     </div>
 </div>

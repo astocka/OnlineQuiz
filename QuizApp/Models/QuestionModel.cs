@@ -18,6 +18,9 @@ namespace QuizApp.Models
         [DisplayName("Correct Answer")]
         public string CorrectAnswer { get; set; }
 
+        [Required]
+        public int QuestionNumber { get; set; }
+
         public int QuizId { get; set; }
         [ForeignKey("QuizId")]
         public QuizModel Quiz { get; set; }

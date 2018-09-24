@@ -40,9 +40,15 @@
                     <td>@item.TotalQuestions</td>
                     <td>@item.PassingPercentage %</td>
                     <td>
-                        <a asp-controller="Question" asp-action="Create" asp-route-quizId="@item.Id">Add question</a> |
-                        <a asp-controller="Quiz" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-controller="Quiz" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <ul style="list-style-type: none; text-align: left">
+                            <li><a asp-controller="Quiz" asp-action="Edit" asp-route-id="@item.Id">Edit</a></li>
+                            <li><a asp-controller="Quiz" asp-action="Delete" asp-route-id="@item.Id">Delete</a></li>
+                            @for (var i = 1; i < item.TotalQuestions + 1; i++)
+                            {
+                                <li><a asp-controller="Question" asp-action="Create" asp-route-quizId="@item.Id" asp-route-questionNumber="@i">Add question no @i </a></li>
+                            }
+                        </ul>
+                        
                     </td>
                 </tr>
             }
@@ -65,7 +71,7 @@ else
                 </div>
                 <div class="card-footer bg-transparent border-light">
                     <div class="btn-group">
-                        <a class="btn btn-warning" asp-controller="Quiz" asp-action="Attempt" asp-route-quizId="@quiz.Id">Attempt now!</a>
+                        <a class="btn btn-warning" asp-controller="Quiz" asp-action="Attempt" asp-route-quizId="@quiz.Id" asp-route-questionNumber="1">Attempt now!</a>
                     </div>
                 </div>
             </div>

@@ -44,7 +44,7 @@ namespace QuizApp.Controllers
         }
 
         // GET: Question/Create
-        public async Task<IActionResult> Create(int? quizId)
+        public async Task<IActionResult> Create(int? quizId, int questionNumber)
         {
             if (quizId == null)
             {
@@ -55,7 +55,15 @@ namespace QuizApp.Controllers
                 var quiz = await _context.Quizzes.FirstOrDefaultAsync(c => c.Id == quizId);
                 ViewBag.QuizTitle = quiz.Title;
                 ViewBag.QuizId = quizId;
-                return View();
+                if (quiz.TotalQuestions >= questionNumber)
+                {
+                    ViewBag.QuestionNumber = questionNumber;
+                    return View();
+                }
+                else
+                {
+                    return Content("You cannot add more questions than declared in quiz");
+                }
             }
         }
 
@@ -64,7 +72,7 @@ namespace QuizApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Question,CorrectAnswer,QuizId")] QuestionModel questionModel)
+        public async Task<IActionResult> Create([Bind("Id,Question,CorrectAnswer,QuizId,QuestionNumber")] QuestionModel questionModel)
         {
             if (ModelState.IsValid)
             {
