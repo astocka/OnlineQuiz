@@ -264,7 +264,7 @@ namespace QuizApp.Controllers
             }
             else
             {
-                var results = await _context.Attempts.Where(u => u.UserName == userName).ToListAsync();
+                var results = await _context.Attempts.Where(u => u.UserName == userName).OrderBy(q => q.QuizTitle).ToListAsync();
                 return View(results);
             }
         }
@@ -272,7 +272,7 @@ namespace QuizApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Ranking()
         {
-            var result = await _context.Attempts.OrderByDescending(s => s.Subscore).ToListAsync();
+            var result = await _context.Results.OrderByDescending(s => s.TotalScore).OrderBy(d => d.AttemptDate).ToListAsync();
             if (result == null)
             {
                 return NotFound();

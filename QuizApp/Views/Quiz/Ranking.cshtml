@@ -1,4 +1,4 @@
-﻿@model List<QuizApp.Models.AttemptModel>
+﻿@model List<QuizApp.Models.ResultModel>
 
 @if (User.IsInRole("Admin"))
 {
@@ -20,6 +20,7 @@ else
         <th>User</th>
         <th>Category</th>
         <th>Quiz</th>
+        <th>Date</th>
         <th>Score</th>
     </tr>
     </thead>
@@ -31,7 +32,8 @@ else
                 <td>@item.UserName</td>
                 <td>@item.QuizCategory</td>
                 <td>@item.QuizTitle</td>
-                <td>@item.Subscore</td>
+                <td>@item.AttemptDate</td>
+                <td>@item.TotalScore</td>
             </tr>
             i += 1;
         }
