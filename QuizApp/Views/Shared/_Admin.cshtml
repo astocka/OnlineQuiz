@@ -19,37 +19,49 @@
                 <nav class="col-md-3 d-none d-md-block bg-light sidebar">
                     <div class="sidebar-sticky">
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <span>Menu</span>
+                        </h6>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Admin" asp-action="Index">
+                                    <img src="~/images/logo/icons8-test-zaliczony-40.png"/>
+                                    Quiz App <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                             <span>Actions</span>
                         </h6>
                         <!-- Nav tabs -->
                         <ul class="nav flex-column">
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Category" asp-action="Index">
-                                    <img src="~/images/icons8-open-64.png" />
+                                    <img src="~/images/icons8-open-64.png"/>
                                     Categories <span class="sr-only">(current)</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Quiz" asp-action="Index">
-                                    <img src="~/images/icons8-todo-list-64.png" />
+                                    <img src="~/images/icons8-todo-list-64.png"/>
                                     Quizzes
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Question" asp-action="Index">
-                                    <img src="~/images/icons8-questions-64.png" />
+                                    <img src="~/images/icons8-questions-64.png"/>
                                     Questions
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link">
-                                    <img src="~/images/icons8-exam-64.png" />
+                                    <img src="~/images/icons8-exam-64.png"/>
                                     Results
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Quiz" asp-action="Ranking">
-                                    <img src="~/images/icons8-prize-64.png" />
+                                    <img src="~/images/icons8-prize-64.png"/>
                                     Ranking
                                 </a>
                             </li>
@@ -62,21 +74,21 @@
                         <ul class="nav flex-column mb-2">
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Account" asp-action="LogOut">
-                                    <img src="~/images/icons8-customer-64.png" />
+                                    <img src="~/images/icons8-customer-64.png"/>
                                     Log out
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Account" asp-action="ChangePassword">
-                                    <img src="~/images/icons8-password-64.png" />
+                                    <img src="~/images/icons8-password-64.png"/>
                                     Change password
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <img src="~/images/icons8-database-import-64.png" />
-                                    Initialize database
-                                </a>
+                            <a class="nav-link" href="#">
+                                <img src="~/images/icons8-database-import-64.png"/>
+                                Initialize database
+                            </a>
                         </ul>
                     </div>
                 </nav>

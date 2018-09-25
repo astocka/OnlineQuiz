@@ -10,9 +10,11 @@
     {
         Layout = "~/Views/Shared/_User.cshtml";
     }
+    var m = 1;
 }
 
-<h4 class="h4 font-weight-bold">Quizzes</h4>
+<p class="display-4">Quizzes</p>
+<hr/>
 
 
 @if (User.IsInRole("Admin"))
@@ -48,7 +50,7 @@
                                 <li><a asp-controller="Question" asp-action="Create" asp-route-quizId="@item.Id" asp-route-questionNumber="@i">Add question no @i </a></li>
                             }
                         </ul>
-                        
+
                     </td>
                 </tr>
             }
@@ -60,18 +62,20 @@ else
     <div class="card-group">
         @foreach (var quiz in Model)
         {
-            <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
-                <h5 class="card-header">Quiz: @quiz.Title</h5>
-                <div class="card-body">
-                    <p class="card-text">Category: @quiz.Category.Name</p>
-                    <h5 class="card-title">@quiz.Description</h5>
-                    <p class="card-text">Time: @quiz.TotalTime min</p>
-                    <p class="card-text">Questions: @quiz.TotalQuestions</p>
-                    <p class="card-text">Passing: @quiz.PassingPercentage %</p>
-                </div>
-                <div class="card-footer bg-transparent border-light">
-                    <div class="btn-group">
-                        <a class="btn btn-warning" asp-controller="Quiz" asp-action="Attempt" asp-route-quizId="@quiz.Id" asp-route-questionNumber="1">Attempt now!</a>
+            <div class="card-deck">
+                <div class="card text-white bg-info">
+                    <h5 class="card-header">Quiz: @quiz.Title</h5>
+                    <div class="card-body">
+                        <p class="card-text">Category: @quiz.Category.Name</p>
+                        <h5 class="card-title">@quiz.Description</h5>
+                        <p class="card-text">Time: @quiz.TotalTime min</p>
+                        <p class="card-text">Questions: @quiz.TotalQuestions</p>
+                        <p class="card-text">Passing: @quiz.PassingPercentage %</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-light">
+                        <div class="btn-group">
+                            <a class="btn btn-warning" asp-controller="Quiz" asp-action="Attempt" asp-route-quizId="@quiz.Id" asp-route-questionNumber="1">Attempt now!</a>
+                        </div>
                     </div>
                 </div>
             </div>
