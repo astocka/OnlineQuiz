@@ -1,0 +1,32 @@
+﻿@model QuizApp.Models.ResultModel
+
+@{
+    ViewData["Title"] = "Quiz App | Quiz Result";
+    Layout = "~/Views/Shared/_User.cshtml";
+}
+
+<h4>Quiz result</h4>
+<hr/>
+
+<dl>
+    <dt>Quiz category</dt>
+    <dd>@Model.QuizCategory</dd>
+    <dt>Quiz Title</dt>
+    <dd>@Model.QuizTitle</dd>
+    <dt>Attempt Date</dt>
+    <dd>@Model.AttemptDate</dd>
+    <dt>Total score</dt>
+    <dd>@Model.TotalScore</dd>
+    <dt>Passing Percentage: @ViewBag.QuizPassing %</dt>
+    <dd>Your result: @((Model.TotalScore/ViewBag.TotalQuestions)*100) %</dd>
+    @if (((Model.TotalScore/ViewBag.TotalQuestions)*100)>=ViewBag.QuizPassing)
+    {
+        <dd class="text-success">Quiz passed!</dd>
+    }
+    else
+    {
+        <dd class="text-danger">Quiz failed</dd>
+    }
+</dl>
+
+<a asp-controller="User" asp-action="Index" class="btn btn-secondary">Back to user panel</a>

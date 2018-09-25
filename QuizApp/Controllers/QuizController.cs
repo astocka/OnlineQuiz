@@ -246,13 +246,40 @@ namespace QuizApp.Controllers
 
                 if (nextQuestion == null)
                 {
-                    return Content("End of quiz");
+                    return RedirectToAction("QuizResult", "Quiz", new {resultId = attempt.ResultNo});
                 }
                 else
                 {
                     return RedirectToAction("Attempt", "Quiz", new { quizId = quizId, questionNumber = questionNumber + 1 });
                 }
 
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> QuizResult(int? resultId)
+        {
+            if (resultId == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var result = await _context.Results.FirstOrDefaultAsync(r => r.Id == resultId);
+                var quizPassing = _context.Quizzes.FirstOrDefault(x => x.Title == result.QuizTitle);
+                var totalQuestions = _context.Quizzes.FirstOrDefault(x => x.Title == result.QuizTitle);
+                if (quizPassing == null || totalQuestions == null)
+                {
+                    ViewBag.QuizPassing = "Unknown";
+                    ViewBag.TotalQuestions = "Unknown";
+                }
+                else
+                {
+                    ViewBag.QuizPassing = quizPassing.PassingPercentage;
+                    ViewBag.TotalQuestions = totalQuestions.TotalQuestions;
+                }
+                   
+                return View(result);
             }
         }
 
