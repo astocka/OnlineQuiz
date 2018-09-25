@@ -13,16 +13,20 @@ else
 @{
     var i = 1;
 }
+
+<p class="display-4">Ranking</p>
+<hr />
+
 <table class="table table-responsive">
-    <thead>
-    <tr class="bg-info">
-        <th>No</th>
-        <th>User</th>
-        <th>Category</th>
-        <th>Quiz</th>
-        <th>Date</th>
-        <th>Score</th>
-    </tr>
+    <thead class="text-white">
+        <tr class="bg-info">
+            <th>#</th>
+            <th>User</th>
+            <th>Category</th>
+            <th>Quiz</th>
+            <th>Date</th>
+            <th>Total Score</th>
+        </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)

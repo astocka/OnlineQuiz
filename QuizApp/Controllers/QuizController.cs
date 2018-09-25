@@ -292,16 +292,35 @@ namespace QuizApp.Controllers
             }
             else
             {
-                var results = await _context.Attempts.Where(u => u.UserName == userName).ToListAsync();
-                ViewBag.UserResults = await _context.Results.Where(u => u.UserName == userName).ToListAsync();
+                //var results = await _context.Attempts.Where(u => u.UserName == userName).ToListAsync();
+                //ViewBag.UserResults = await _context.Results.Where(u => u.UserName == userName).ToListAsync();
+                //return View(results);
+                ViewBag.ResultDetails = await _context.Attempts.Where(u => u.UserName == userName).ToListAsync();
+                var results = await _context.Results.Where(u => u.UserName == userName).ToListAsync();
                 return View(results);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ResultDetails(int? resultNo)
+        {
+            var resultDetails = await _context.Attempts.Where(n => n.ResultNo == resultNo).ToListAsync();
+            if (resultDetails == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                ViewBag.QTitle = resultDetails.Select(t => t.QuizTitle).FirstOrDefault();
+                ViewBag.QCategory = resultDetails.Select(c => c.QuizCategory).FirstOrDefault();
+                return View(resultDetails);
             }
         }
 
         [HttpGet]
         public async Task<IActionResult> Ranking()
         {
-            var result = await _context.Results.OrderByDescending(s => s.TotalScore).OrderBy(u => u.UserName).ToListAsync();
+            var result = await _context.Results.OrderByDescending(s => s.TotalScore).ToListAsync();
             if (result == null)
             {
                 return NotFound();

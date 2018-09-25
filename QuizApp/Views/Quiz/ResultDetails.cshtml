@@ -1,0 +1,36 @@
+﻿@model List<QuizApp.Models.AttemptModel>
+
+@{
+    ViewData["Title"] = "Quiz App | My Results";
+    Layout = "~/Views/Shared/_User.cshtml";
+
+}
+
+<p class="display-4">My results - details</p>
+<hr />
+<div class="pt-2 pb-2">
+    <h4 class="font-weight-light">Quiz: @ViewBag.QTitle</h4>
+    <h6 class="font-weight-light">Category: @ViewBag.QCategory</h6>
+</div>
+    
+@foreach (var attempt in Model)
+{
+    <div class="col-sm-12 mt-4">
+        <h5 class="font-italic">Question: @attempt.AttemptQuestion</h5>
+        @if (attempt.Subscore == 1)
+        {
+            <h5 class="text-success">Your Answer: @attempt.AttemptAnswer</h5>
+        }
+        else
+        {
+            <h5 class="text-danger">Your Answer: @attempt.AttemptAnswer</h5>
+            <h5 class="font-weight-bold">Correct Answer: @attempt.CorrectAnswer</h5>
+        }
+        <h5 class="text-uppercase">Subscore: @attempt.Subscore</h5>
+        <hr />
+    </div>
+}
+
+<a class="btn btn-secondary" asp-controller="Quiz" asp-action="UserResult" asp-route-userName="@User.Identity.Name">Back to results</a>
+
+
