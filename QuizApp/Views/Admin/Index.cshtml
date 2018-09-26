@@ -4,9 +4,31 @@
 
 }
 
-<div class="p-3 mb-2 bg-info text-white">
-    <h3>Welcome to Quiz App</h3>
+<div class="p-3 mb-2">
+    <p class="display-4">Hello <span class="font-weight-bold text-warning">@User.Identity.Name</span>,</p>
+    <p class="display-4">welcome to Quiz App!</p>
 </div>
+
+<ul class="nav flex-column mb-2">
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Account" asp-action="LogOut">
+            <img src="~/images/icons8-customer-64.png"/>
+            Log out
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Account" asp-action="ChangePassword">
+            <img src="~/images/icons8-password-64.png"/>
+            Change password
+        </a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" href="#">
+        <img src="~/images/icons8-database-import-64.png"/>
+        Initialize database
+    </a>
+</ul>
+
 <form asp-controller="Role" asp-action="AddToAdminRole" method="post">
-    <button class="btn btn-info" type="submit">Add to admin role</button>
+    <button class="btn btn-secondary" type="submit">Add to admin role</button>
 </form>
