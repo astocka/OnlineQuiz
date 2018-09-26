@@ -9,24 +9,24 @@
 <p class="display-4">My results - details</p>
 <hr />
 <div class="pt-2 pb-2">
-    <h4 class="font-weight-light">Quiz: @ViewBag.QTitle</h4>
-    <h6 class="font-weight-light">Category: @ViewBag.QCategory</h6>
+    <h2 class="font-weight-light">Quiz: @ViewBag.QTitle</h2>
+    <h4 class="font-weight-light">Category: @ViewBag.QCategory</h4>
 </div>
     
 @foreach (var attempt in Model)
 {
     <div class="col-sm-12 mt-4">
-        <h5 class="font-italic">Question: @attempt.AttemptQuestion</h5>
+        <h5 class="font-italic font-weight-light">Question: @attempt.AttemptQuestion</h5>
         @if (attempt.Subscore == 1)
         {
-            <h5 class="text-success">Your Answer: @attempt.AttemptAnswer</h5>
+            <h6 class="text-success">Your Answer: @attempt.AttemptAnswer</h6>
         }
         else
         {
-            <h5 class="text-danger">Your Answer: @attempt.AttemptAnswer</h5>
-            <h5 class="font-weight-bold">Correct Answer: @attempt.CorrectAnswer</h5>
+            <h6 class="text-danger">Your Answer: @attempt.AttemptAnswer</h6>
+            <h6 class="font-weight-bold">Correct Answer: @attempt.CorrectAnswer</h6>
         }
-        <h5 class="text-uppercase">Subscore: @attempt.Subscore</h5>
+        <h6 class="text-uppercase font-weight-light">Subscore: @attempt.Subscore</h6>
         <hr />
     </div>
 }
