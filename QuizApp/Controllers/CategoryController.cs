@@ -24,27 +24,7 @@ namespace QuizApp.Controllers
         {
             ViewBag.Categories = await _context.Categories.ToListAsync();
             var categories = await _context.Categories.ToListAsync();
-            //ViewBag.QuizzesWithCategory = await _context.Quizzes.Include(c => c.QuizCategory).ToListAsync();
-
             return View(categories);
-        }
-
-        // GET: QuizCategory/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var quizCategoryModel = await _context.Categories
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (quizCategoryModel == null)
-            {
-                return NotFound();
-            }
-
-            return View(quizCategoryModel);
         }
 
         // GET: QuizCategory/Create
@@ -58,7 +38,7 @@ namespace QuizApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,ImagePath")] CategoryModel categoryModel)
+        public async Task<IActionResult> Create([Bind("Id,Name")] CategoryModel categoryModel)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +70,7 @@ namespace QuizApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ImagePath")] CategoryModel categoryModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] CategoryModel categoryModel)
         {
             if (id != categoryModel.Id)
             {
