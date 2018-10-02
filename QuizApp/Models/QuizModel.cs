@@ -17,8 +17,6 @@ namespace QuizApp.Models
         public string Title { get; set; }
         [Required]
         public string Description { get; set; }
-        [DisplayName("Total Time")]
-        public int TotalTime { get; set; }
         [DisplayName("Total Questions")]
         public int TotalQuestions { get; set; }
         [DisplayName("Passing Percentage")]
@@ -29,8 +27,5 @@ namespace QuizApp.Models
         public CategoryModel Category { get; set; }
 
         public ICollection<QuestionModel> Questions { get; set; }
-
-        //public ICollection<AttemptModel> Attempts { get; set; }
-
     }
 }

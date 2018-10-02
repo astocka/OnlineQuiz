@@ -19,13 +19,13 @@ namespace QuizApp.Controllers
             _context = context;
         }
 
-        // GET: /<controller>/
-        public async Task<IActionResult> Index(int? quizId)
-        {
-            var attemptQuiz = await _context.Quizzes.Include(c => c.Category).Include(q => q.Questions).ThenInclude(a => a.Answers)
-                .FirstOrDefaultAsync(quiz => quiz.Id == quizId);
+        //// GET: /<controller>/
+        //public async Task<IActionResult> Index(int? quizId)
+        //{
+        //    var attemptQuiz = await _context.Quizzes.Include(c => c.Category).Include(q => q.Questions).ThenInclude(a => a.Answers)
+        //        .FirstOrDefaultAsync(quiz => quiz.Id == quizId);
 
-            return View();
-        }
+        //    return View();
+        //}
     }
 }

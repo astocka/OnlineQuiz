@@ -25,24 +25,6 @@ namespace QuizApp.Controllers
             return View(await _context.Questions.Include(q => q.Quiz).ThenInclude(c => c.Category).ToListAsync());
         }
 
-        // GET: Question/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var questionModel = await _context.Questions
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (questionModel == null)
-            {
-                return NotFound();
-            }
-
-            return View(questionModel);
-        }
-
         // GET: Question/Create
         public async Task<IActionResult> Create(int? quizId, int questionNumber)
         {

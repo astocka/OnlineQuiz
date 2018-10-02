@@ -26,24 +26,6 @@ namespace QuizApp.Controllers
             return View(quizzes);
         }
 
-        // GET: Quiz/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var quizModel = await _context.Quizzes.Include(q => q.Questions).ThenInclude(a => a.Answers)
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (quizModel == null)
-            {
-                return NotFound();
-            }
-
-            return View(quizModel);
-        }
-
         // GET: Quiz/Create
         public async Task<IActionResult> Create(int? categoryId)
         {
@@ -65,7 +47,7 @@ namespace QuizApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,TotalTime,TotalQuestions,PassingPercentage,CategoryId")] QuizModel quizModel)
+        public async Task<IActionResult> Create([Bind("Id,Title,Description,TotalQuestions,PassingPercentage,CategoryId")] QuizModel quizModel)
         {
             if (ModelState.IsValid)
             {
@@ -98,7 +80,7 @@ namespace QuizApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,TotalTime,TotalQuestions,PassingPercentage,CategoryId")] QuizModel quizModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,TotalQuestions,PassingPercentage,CategoryId")] QuizModel quizModel)
         {
             if (id != quizModel.Id)
             {
@@ -292,9 +274,6 @@ namespace QuizApp.Controllers
             }
             else
             {
-                //var results = await _context.Attempts.Where(u => u.UserName == userName).ToListAsync();
-                //ViewBag.UserResults = await _context.Results.Where(u => u.UserName == userName).ToListAsync();
-                //return View(results);
                 ViewBag.ResultDetails = await _context.Attempts.Where(u => u.UserName == userName).ToListAsync();
                 var results = await _context.Results.Where(u => u.UserName == userName).ToListAsync();
                 return View(results);

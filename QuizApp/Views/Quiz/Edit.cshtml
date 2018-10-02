@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 
-<h2>Edit the quiz</h2>
+<p class="display-4">Edit quiz</p>
 <hr />
 
 <div class="row">
@@ -23,11 +23,6 @@
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TotalTime" class="control-label"></label>
-                <input asp-for="TotalTime" class="form-control" />
-                <span asp-validation-for="TotalTime" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TotalQuestions" class="control-label"></label>

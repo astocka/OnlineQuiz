@@ -16,16 +16,14 @@
 <p class="display-4">Quizzes</p>
 <hr/>
 
-
 @if (User.IsInRole("Admin"))
 {
     <table class="table table-responsive">
         <thead>
-            <tr class="bg-info">
+            <tr class="bg-info text-white">
                 <th>Category</th>
                 <th>Title</th>
                 <th>Description</th>
-                <th>Total Time</th>
                 <th>Total Questions</th>
                 <th>Passing Percentage</th>
                 <th>Options</th>
@@ -38,16 +36,15 @@
                     <td>@item.Category.Name</td>
                     <td>@item.Title</td>
                     <td>@item.Description</td>
-                    <td>@item.TotalTime min</td>
                     <td>@item.TotalQuestions</td>
                     <td>@item.PassingPercentage %</td>
                     <td>
                         <ul style="list-style-type: none; text-align: left">
-                            <li><a asp-controller="Quiz" asp-action="Edit" asp-route-id="@item.Id">Edit</a></li>
-                            <li><a asp-controller="Quiz" asp-action="Delete" asp-route-id="@item.Id">Delete</a></li>
+                            <li><a class="btn btn-warning" asp-controller="Quiz" asp-action="Edit" asp-route-id="@item.Id">Edit</a></li>
+                            <li><a class="btn btn-danger" asp-controller="Quiz" asp-action="Delete" asp-route-id="@item.Id">Delete</a></li>
                             @for (var i = 1; i < item.TotalQuestions + 1; i++)
                             {
-                                <li><a asp-controller="Question" asp-action="Create" asp-route-quizId="@item.Id" asp-route-questionNumber="@i">Add question no @i </a></li>
+                                <li><a class="btn btn-outline-dark btn-sm" asp-controller="Question" asp-action="Create" asp-route-quizId="@item.Id" asp-route-questionNumber="@i">Add question no @i </a></li>
                             }
                         </ul>
 
@@ -68,7 +65,6 @@ else
                     <div class="card-body">
                         <p class="card-text">Category: @quiz.Category.Name</p>
                         <h5 class="card-title">@quiz.Description</h5>
-                        <p class="card-text">Time: @quiz.TotalTime min</p>
                         <p class="card-text">Questions: @quiz.TotalQuestions</p>
                         <p class="card-text">Passing: @quiz.PassingPercentage %</p>
                     </div>

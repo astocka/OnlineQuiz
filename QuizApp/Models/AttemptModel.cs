@@ -27,23 +27,5 @@ namespace QuizApp.Models
         public string UserName { get; set; }
 
         public int? ResultNo { get; set; }
-
-
-        //public int AttemptQuizId { get; set; }
-        //[ForeignKey("AttemptQuizId")]
-        //public QuizModel AttemptQuiz { get; set; }
-
-        //public int AttemptQuestionId { get; set; }
-        //[ForeignKey("AttemptQuestionId")]
-        //public QuestionModel AttemptQuestion { get; set; }
-
-        //[DisplayName("Correct Answer")]
-        //[Required]
-        //public string CorrectAnswer { get; set; }
-
-        //public int AttemptAnswerId { get; set; }
-        //[ForeignKey("AttemptAnswerId")]
-        //public AnswerModel AttemptAnswer { get; set; }
-
     }
 }

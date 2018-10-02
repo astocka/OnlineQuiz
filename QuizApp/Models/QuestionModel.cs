@@ -26,9 +26,5 @@ namespace QuizApp.Models
         public QuizModel Quiz { get; set; }
 
         public ICollection<AnswerModel> Answers { get; set; }
-
-        //public ICollection<AttemptModel> Attempts { get; set; }
-
-
     }
 }

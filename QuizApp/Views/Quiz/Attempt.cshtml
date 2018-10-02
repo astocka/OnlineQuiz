@@ -5,30 +5,32 @@
     Layout = "~/Views/Shared/_User.cshtml";
 }
 
+<p class="display-4">Quiz: @ViewBag.QuizTitle</p>
+<hr />
+
 <div class="card col-sm-6">
     <div class="card-body">
-        <h2 class="card-title">Quiz: @ViewBag.QuizTitle</h2>
         <p class="card-text">
             <form asp-controller="Quiz" asp-action="Attempt" asp-route-quizId="@ViewBag.QuizId" asp-route-questionNumber="@ViewBag.QuestionNumber" method="post">
-                    <div class="card">
-                        <div class="card-header">
-                            Question: @ViewBag.Question.Question
-                            <input type="hidden" asp-for="AttemptQuestion" value="@ViewBag.Question.Question" />
+                <div class="card">
+                    <div class="card-header">
+                        Question: @ViewBag.Question.Question
+                        <input type="hidden" asp-for="AttemptQuestion" value="@ViewBag.Question.Question" />
 
-                        </div>
-                        <div class="card-body">
-                            @foreach (var answer in ViewBag.Question.Answers)
-                            {
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" asp-for="AttemptAnswer" value="@answer.AnswerOption" required="required">
-                                    <label class="form-check-label">
-                                        @answer.AnswerOption
-                                    </label>
-                                    <span asp-validation-for="AttemptAnswer"></span>
-                                </div>
-                            }
-                        </div>
                     </div>
+                    <div class="card-body">
+                        @foreach (var answer in ViewBag.Question.Answers)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" asp-for="AttemptAnswer" value="@answer.AnswerOption" required="required">
+                                <label class="form-check-label">
+                                    @answer.AnswerOption
+                                </label>
+                                <span asp-validation-for="AttemptAnswer"></span>
+                            </div>
+                        }
+                    </div>
+                </div>
                 <input type="hidden" asp-for="QuizCategory" value="@ViewBag.QuizCategory" />
                 <input type="hidden" asp-for="QuizTitle" value="@ViewBag.QuizTitle" />
                 <input type="hidden" asp-for="CorrectAnswer" value="@ViewBag.QuizCorrectAnswer" />

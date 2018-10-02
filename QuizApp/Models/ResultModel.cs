@@ -21,6 +21,5 @@ namespace QuizApp.Models
 
         [DisplayName("User")]
         public string UserName { get; set; }
-
     }
 }

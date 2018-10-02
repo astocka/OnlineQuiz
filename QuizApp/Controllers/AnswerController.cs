@@ -30,24 +30,24 @@ namespace QuizApp.Controllers
             return View(await appDbContext.ToListAsync());
         }
 
-        // GET: Answer/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //// GET: Answer/Details/5
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var answerModel = await _context.Answers
-                .Include(a => a.Question)
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (answerModel == null)
-            {
-                return NotFound();
-            }
+        //    var answerModel = await _context.Answers
+        //        .Include(a => a.Question)
+        //        .SingleOrDefaultAsync(m => m.Id == id);
+        //    if (answerModel == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(answerModel);
-        }
+        //    return View(answerModel);
+        //}
 
         // GET: Answer/Create
         public IActionResult Create()

@@ -5,11 +5,12 @@
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 
-<h4 class="h4 font-weight-bold">Questions</h4>
+<p class="display-4">Questions</p>
+<hr/>
 
 <table class="table table-responsive">
     <thead>
-        <tr class="bg-info">
+        <tr class="bg-info text-white">
             <th>Category</th>
             <th>Quiz Title</th>
             <th>Question</th>
@@ -18,20 +19,26 @@
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.Quiz.Category.Name</td>
-            <td>@item.Quiz.Title</td>
-            <td>@item.Question</td>
-            <td>@item.CorrectAnswer</td>
-            <td>
-                <a asp-controller="Answer" asp-action="Index" asp-route-questionId="@item.Id">Answer options</a> |
-                <a asp-controller="Answer" asp-action="Create">Add answer option</a> |
-                <a asp-controller="Question" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-controller="Question" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-    }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Quiz.Category.Name</td>
+                <td>@item.Quiz.Title</td>
+                <td>@item.Question</td>
+                <td>@item.CorrectAnswer</td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-warning" asp-controller="Question" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-danger" asp-controller="Question" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </div>
+                    <div>
+                        <a class="btn btn-outline-dark btn-sm" asp-controller="Answer" asp-action="Index" asp-route-questionId="@item.Id">Answer options</a>
+                    </div>
+                    <div>
+                        <a class="btn btn-outline-success btn-sm" asp-controller="Answer" asp-action="Create">Add answer option</a>
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
