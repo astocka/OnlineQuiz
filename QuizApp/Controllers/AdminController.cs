@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,16 +14,13 @@ using QuizApp.ViewModels;
 
 namespace QuizApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
         private readonly AppDbContext _context;
 
-        public AdminController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, AppDbContext context)
+        public AdminController(AppDbContext context)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
             _context = context;
         }
 

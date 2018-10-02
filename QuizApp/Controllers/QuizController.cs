@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using QuizApp.Models;
 
 namespace QuizApp.Controllers
 {
+    [Authorize]
     public class QuizController : Controller
     {
         private readonly AppDbContext _context;
@@ -27,6 +29,7 @@ namespace QuizApp.Controllers
         }
 
         // GET: Quiz/Create
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(int? categoryId)
         {
             if (categoryId == null)
@@ -45,6 +48,7 @@ namespace QuizApp.Controllers
         // POST: Quiz/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Description,TotalQuestions,PassingPercentage,CategoryId")] QuizModel quizModel)
@@ -60,6 +64,7 @@ namespace QuizApp.Controllers
         }
 
         // GET: Quiz/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,6 +83,7 @@ namespace QuizApp.Controllers
         // POST: Quiz/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,TotalQuestions,PassingPercentage,CategoryId")] QuizModel quizModel)
@@ -110,7 +116,9 @@ namespace QuizApp.Controllers
             return View(quizModel);
         }
 
+
         // GET: Quiz/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -129,6 +137,7 @@ namespace QuizApp.Controllers
         }
 
         // POST: Quiz/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

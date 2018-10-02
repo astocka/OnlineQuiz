@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +13,7 @@ using QuizApp.Models;
 
 namespace QuizApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
         protected UserManager<AppUser> UserManager { get; }
@@ -32,26 +34,6 @@ namespace QuizApp.Controllers
             return View(roles);
         }
 
-        //
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
-        //
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] IdentityRole<int> role)
-        {
-            if (ModelState.IsValid)
-            {
-                await RoleManager.CreateAsync(role);
-                return RedirectToAction("Index", "Role");
-            }
-
-            return View(role);
-        }
-
         [HttpPost]
         public async Task<IActionResult> AddToUserRole(string userName)
         {
@@ -59,18 +41,6 @@ namespace QuizApp.Controllers
             if (user == null)
                 return NotFound();
             await UserManager.AddToRoleAsync(user, "User");
-            return RedirectToAction("Index", "Role");
-        }
-
-
-        // delete it before Database Initialize
-        [HttpPost]
-        public async Task<IActionResult> AddToAdminRole()
-        {
-            var user = await UserManager.GetUserAsync(User);
-            if (user == null)
-                return NotFound();
-            await UserManager.AddToRoleAsync(user, "Admin");
             return RedirectToAction("Index", "Role");
         }
     }

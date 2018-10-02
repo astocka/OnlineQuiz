@@ -2,12 +2,10 @@
 
 @if (User.IsInRole("Admin"))
 {
-    ViewData["Title"] = "Quiz App | Ranking";
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 else
 {
-    ViewData["Title"] = "Quiz App | Ranking";
     Layout = "~/Views/Shared/_User.cshtml";
 }
 @{

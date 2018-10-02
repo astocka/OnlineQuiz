@@ -1,5 +1,4 @@
 ﻿@{
-    ViewData["Title"] = "Quiz App | Admin panel";
     Layout = "~/Views/Shared/_Admin.cshtml";
 
 }
@@ -23,8 +22,9 @@
         </a>
     </li>
     <li class="nav-item">
-    <a class="nav-link" href="#">
-        <img src="~/images/icons8-database-import-64.png"/>
-        Initialize database
-    </a>
+        <a class="nav-link" asp-controller="Role" asp-action="Index">
+            <img src="~/images/icons8-user-groups-64.png"/>
+            Role manager
+        </a>
+    </li>
 </ul>

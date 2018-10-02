@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuizApp.Context;
@@ -11,15 +12,9 @@ using QuizApp.Models;
 
 namespace QuizApp.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
-        private readonly AppDbContext _context;
-
-        public UserController(AppDbContext context)
-        {
-            _context = context;
-        }
-        
         // GET: /<controller>/
         public IActionResult Index()
         {

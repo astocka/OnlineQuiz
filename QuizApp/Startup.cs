@@ -45,7 +45,12 @@ namespace QuizApp
 
             app.UseAuthentication();
             app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Account}/{action=Signin}/{id?}");
+            });
         }
     }
 }

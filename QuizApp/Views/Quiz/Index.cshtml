@@ -1,7 +1,6 @@
 ﻿@model System.Collections.Generic.IEnumerable<QuizApp.Models.QuizModel>
 
 @{
-    ViewData["Title"] = "Index";
     if (User.IsInRole("Admin"))
     {
         Layout = "~/Views/Shared/_Admin.cshtml";
@@ -10,7 +9,6 @@
     {
         Layout = "~/Views/Shared/_User.cshtml";
     }
-    var m = 1;
 }
 
 <p class="display-4">Quizzes</p>

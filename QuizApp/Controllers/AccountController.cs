@@ -25,6 +25,8 @@ namespace QuizApp.Controllers
             SignInManager = signInManager;
             RoleManager = roleManager;
             Context = context;
+
+            IdentitySeedData.Seed(userManager, roleManager).Wait();
         }
 
         [HttpGet]
@@ -42,15 +44,11 @@ namespace QuizApp.Controllers
                     signInViewModel.RememberMe, false);
                 if (result.Succeeded)
                 {
-                    if (User.IsInRole("Admin"))
-                    {
-                        return RedirectToAction("Index", "Admin");
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "User");
-                    }
+                    if(signInViewModel.Login == "admin")
+                        return RedirectToAction("Index", signInViewModel.Login);
+                    return RedirectToAction("Index", "User");
                 }
+
 
                 ModelState.AddModelError("", "Wrong login or password");
             }
@@ -113,13 +111,9 @@ namespace QuizApp.Controllers
                     await SignInManager.SignOutAsync();
                     return RedirectToAction("SignIn", "Account");
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Wrong login or password");
-                }
+                ModelState.AddModelError("", "Wrong login or password");
             }
             return View(viewModel);
         }
-
     }
 }
